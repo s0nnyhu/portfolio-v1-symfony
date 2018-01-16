@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ htmlTitle }}{% endblock %}
+
+{% block mainTitle %}{{ mainTitle }}{% endblock %}
+
+{% block body %}
+	<!--<h3>Mes compétences</h3>-->
+	<h3>Programmation:</h3>
+	<div class="row mainSkill">
+	    <div class="row">
+	        <div class="col-lg-6 colSkill">
+	            <h3>>_Langage</h3>
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/html5.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">HTML</div>
+	                    <div class="skill-bar-percent">80%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-html" style="width: 80%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/css.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">CSS3</div>
+	                    <div class="skill-bar-percent">70%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-css" style="width: 70%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/php.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">PHP</div>
+	                    <div class="skill-bar-percent">75%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-php" style="width: 75%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/javascript.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">JavaScript</div>
+	                    <div class="skill-bar-percent">70%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-js" style="width: 70%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+	        </div>
+
+	        <div class="col-lg-6 colSkill">
+	            <br />
+	            <br />
+	            <br />
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/java.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">JAVA</div>
+	                    <div class="skill-bar-percent">80%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-java" style="width: 80%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/python.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">Python</div>
+	                    <div class="skill-bar-percent">50%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-python" style="width: 50%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/csharpblue.png') }}" />
+	                <div class="skillbar" data-percent="70%">
+	                    <div class="skillbar-title">C#</div>
+	                    <div class="skill-bar-percent">50%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-csharp" style="width: 50%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	    </div>
+	    <div class="row">
+	        <div class="col-lg-6 colSkill">
+	            <h3>>_Framework</h3>
+	            <div class="row">
+	                <img class="imgSkill" src="{{ asset('build/img/symfony.png') }}" />
+	                <div class="skillbar" data-percent="40%">
+	                    <div class="skillbar-title">Symfony</div>
+	                    <div class="skill-bar-percent">40%</div>
+	                    <div class="fullSkillbar-bar" style="width: 100%; background-color:#BDBDBD;">
+	                        <div class="skillbar-bar skillbar-bar-symfony" style="width: 40%;"></div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+	</div>
+	<hr class="articleSeparator">
+	<!--standby <div class="itSkill">
+	    <h3>Réseaux et télécomunications</h3>
+	    
+	</div>-->   
+{% endblock %}

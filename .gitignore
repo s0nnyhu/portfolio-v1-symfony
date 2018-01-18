@@ -8,7 +8,7 @@
 
 ###> symfony/webpack-encore-pack ###
 /node_modules/
-/public/build/
+#/public/build/
 ###< symfony/webpack-encore-pack ###
 
 ###> symfony/web-server-bundle ###

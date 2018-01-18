@@ -1,0 +1,127 @@
+{% extends 'admin/adbase.html.twig' %}
+{% block mainTitle %} Add section {% endblock %}
+{% block body %}
+
+    <div class="box">
+        <div class="box-header">
+             <h3 class="box-title">Hover Data Table</h3>                                    
+        </div><!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Slug</th>
+                    <th>is_public</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {%  for article in articles %}
+                        <tr>
+                            <td>{{ article.id }}</td>
+                            <td>{{ article.title }}</td>
+                            <td>{{ article.slug }}</td>
+                            {% if article.isPublic == 1 %}
+                                <td><input type="checkbox" id="myCheck" checked ></td>
+                            {% else %}
+                                <td><input type="checkbox"></td>
+                            {% endif %}
+                            <td style="display:flex; justify-content: space-around;">
+                                <a href="/delete/{{ article.id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
+                                <a href="/edit/{{ article.id }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %} 
+
+
+            <script src="http://ngiriraj.com/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+            <script src="http://ngiriraj.com/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+            <script>
+                $(document).ready(function() {
+                    $(".table").dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": true,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": true,
+                    "bAutoWidth": false
+                });
+                    } );
+            </script>
+            <script>
+                function getXMLHttpRequest() {
+                    var xhr = null; 
+                    if (window.XMLHttpRequest || window.ActiveXObject) {
+                        if (window.ActiveXObject) {
+                            try {
+                                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                            } catch(e) {
+                                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                            }
+                        } else {
+                            xhr = new XMLHttpRequest(); 
+                        }
+                    } else {
+                        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+                        return null;
+                    }
+                    return xhr;
+                }
+                $(document).on('change', 'input[type=checkbox]', function(e) {
+
+                    if(this.checked) {
+                        e.preventDefault();
+                        var id = this.closest('tr').firstElementChild.innerHTML;
+                        console.log(id);
+                        var xhr=getXMLHttpRequest();
+                        xhr.open('POST', '/admin/manage/edit/status/?id='+id+'&status=1', true);
+                        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+                        console.log(xhr.readyState);
+                        xhr.onreadystatechange = function() {
+                            if(xhr.readyState === 4) {
+                                console.log("ok 4");
+                                if (xhr.status === 200) {
+                                    console.log(xhr.responseText);
+                                    $.notify('#'+id + ": Public status has been changed to public", "success");
+                                } else {
+                                $.notify("An error occured!", "error");
+                                }
+                            }   
+                        }
+                        xhr.send();
+                    } 
+
+                    else {
+                        e.preventDefault();
+                        var id = this.closest('tr').firstElementChild.innerHTML;
+                        console.log(id);
+                        var xhr=getXMLHttpRequest();
+                        xhr.open('POST', '/admin/manage/edit/status/?id='+id+'&status=0', true);
+                        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+                        xhr.onreadystatechange = function() {
+                            if(xhr.readyState === 4) {
+                                console.log("ok 4");
+                                if (xhr.status === 200) {
+                                    console.log(xhr.responseText);
+                                    $.notify('#'+id + ": Public status has been changed to non public", "success");
+                                } else {
+                                $.notify("An error occured!", "error");
+                                }
+                            }   
+                        }
+                        xhr.send();
+                    }
+                })
+
+            </script>
+
+{% endblock %}

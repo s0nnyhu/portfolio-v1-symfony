@@ -13,7 +13,7 @@ class AppController extends Controller
     *All function which does not render!
     *
     **/
-    private function setHtmlTitle($htmlTitle ="", $mainTitle="") {
+    public function setHtmlTitle($htmlTitle ="", $mainTitle="") {
         return array("htmlTitle" => $htmlTitle,"mainTitle" => $mainTitle);
     }
 
@@ -45,15 +45,6 @@ class AppController extends Controller
     	return $this->render('public/contact.html.twig', self::setHtmlTitle(
             "Sonny Hu | Contact",
             "Me contacter"));
-    }
-
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login() {
-        return $this->render('public/login.html.twig', self::setHtmlTitle(
-            "Sonny Hu | Contact",
-            "Se connecter"));
     }
 }
 

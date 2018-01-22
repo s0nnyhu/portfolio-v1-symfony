@@ -10,7 +10,7 @@
         <br />
         <h4 style="color: grey;">Se connecter:</h4>
         <hr>
-		<form method="POST" action="#">
+		<form method="POST" action="/login" id="formLogin">
         <div class="field">
             <label for="username" class="field-label">Username</label>
             <input type="text" id="username" name="username" class="field-input">
@@ -21,7 +21,8 @@
             <input type="password" id="pwd" name="pwd" class="field-input">
         </div>
 		<br />
-		<button class="btn-si btn-github">Se connecter </button>
+		<!--<button type="submit" form="formLogin" class="btn-si btn-github">Se connecter </button>-->
+        <input type="submit" value="Envoyer">
 		</form>
         <script>
             jQuery(function($) {

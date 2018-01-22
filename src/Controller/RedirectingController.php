@@ -17,12 +17,9 @@ class RedirectingController extends Controller
      */
     public function removeTrailingSlash(Request $request) {
     	$pathInfo = $request->getPathInfo();
-
         $requestUri = $request->getRequestUri();
         $url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
-        $rep = $http->getStatusCode();
-        //return $this->redirect($url, 301);
-        return new Response("hello");
+        return $this->redirect($url, 301);
     }
 
 }

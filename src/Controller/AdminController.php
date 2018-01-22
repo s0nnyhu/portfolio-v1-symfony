@@ -50,6 +50,9 @@ class AdminController extends Controller
             $fileToUpload = $formFile['file']->getData();
             $file_name = $fileData->getFileName();
             $file_ext = $fileData->getFileType();
+            /*
+            * $dir edited, recheck t
+            */
             $dir=$this->getParameter('upload_directory');
             $fileToUpload->move($dir, $file_name);
             return new JsonResponse(["isOk" => "ok"]);
@@ -65,7 +68,13 @@ class AdminController extends Controller
                 'added',
                 'Article has been added');
             return $this->redirectToRoute('addArticle');
+        } elseif($formArticle->isSubmitted() && $formArticle->isValid()==false) {
+        	$this->addFlash(
+                'notAdded',
+                'An error occured, article not added :(');
+            return $this->redirectToRoute('addArticle');
         }
+
         return $this->render('admin/core/add.html.twig', array('formArticle' =>$formArticle->createView(), 'formFile' =>$formFile->createView()));
 
     }

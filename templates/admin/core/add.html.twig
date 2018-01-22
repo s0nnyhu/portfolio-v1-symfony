@@ -1,13 +1,39 @@
 {% extends 'admin/adbase.html.twig' %}
 {% block mainTitle %} Add section {% endblock %}
+{% block localisation %}
+    <section class="content-header">
+      <h1>_Add_</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li>Contents</li>
+        <li class="active">Add</li>
+      </ol>
+    </section>
+{% endblock %}
 {% block body %}
 
-    <div class="col-md-9">
+    <div class="col-md-9" style="padding:0 10px;">
+    	<div class="box box-primary">
+    		<div class="box-header">
+    			<h3 class="box-title">Some news to add?</h3>
+    		</div>
+    		<div class="box-body">
                 {% for message in app.flashes('added') %}
-                    <div class="well">
-                        {{ message }}
+                    <div class="alert alert-success alert-dismissable">
+                    	<i class="fa fa-check"></i>
+                    	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    	{{ message }}
                     </div>
                 {% endfor %}
+
+                {% for message in app.flashes('notAdded') %}
+                    <div class="alert alert-danger alert-dismissable">
+                    	<i class="fa fa-warning"></i>
+                    	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    	{{ message }}
+                    </div>
+                {% endfor %}
+
                 {{ form_start(formArticle, {'action': '/admin/add', 'attr': {'class': 'formArticleClass'}}) }}
                 <div class="form-group">
                     {{ form_label(formArticle.title, 'Title:')  }}
@@ -19,14 +45,14 @@
                     {{ form_label(formArticle.content, 'Content:')  }}
                     <br/>
                     {{ form_errors(formArticle.content) }}
-                    {{ form_widget(formArticle.content, { 'id': 'ckeditor', 'attr': {'class': 'form-control', 'rows': "10", 'cols': '100'}}) }}
+                    {{ form_widget(formArticle.content, { 'id': 'ckeditor', 'attr': {'class': 'form-control', 'placeholder': 'Write something here'}}) }}
                 </div>
 
                 <div class="form-group">
                     {{ form_label(formArticle.isPublic, 'Is Public:')  }}
                     <br/>
                     {{ form_errors(formArticle.isPublic) }}
-                    {{ form_widget(formArticle.isPublic) }}
+                    {{ form_widget(formArticle.isPublic, {'attr' : {'class': 'minimal'}})}}
                 </div>
 
                 <div class="form-group">
@@ -45,9 +71,16 @@
                     {{ form_widget(formArticle.Publish, {'attr': {'class': 'btn btn-primary'}, 'id': 'ckeditor'} ) }}
                 </div>
                 {{ form_end(formArticle) }}
+               </div>
+         </div>
     </div>
 
     <div class="col-md-3">
+    	<div class="box box-primary">
+    		<div class="box-header">
+    			<h3 class="box-title">Somethin'to upload?</h3>
+    		</div>
+    		<div class="box-body">
                 {{ form_start(formFile, {'action': '#', 'attr': {'class': 'formFileClass'}}) }}
                  <div class="form-group">
                     {{ form_label(formFile.fileName, 'File attributes are required!')  }}
@@ -77,10 +110,14 @@
 
                 <br/>
                 <div id="divPreview" style="display:flex;justify-content:center;align-items:center;"></div>
-		</div>
+            </div>
+        </div>
+	</div>
     		
         <script>
-            CKEDITOR.replace( 'ckeditor' );
+            CKEDITOR.replace('ckeditor', {
+                height: 350
+            } );
         </script>
         <script>
             function removePre() {
@@ -128,11 +165,12 @@
                     }
                     else { 
                         var xhr=getXMLHttpRequest();
-                        xhr.open('POST', '/admdin/add', true);
+                        xhr.open('POST', '/admin/add', true);
                         var btnUpload = document.getElementById('btnUpload');
                         btnUpload.classList.add('disabled');
                         xhr.onreadystatechange = function() {
                             if (this.readyState == 4 && this.status == 200) {
+                                $.notify("Yay, your file has been uploaded :]", "success");
                             	removePre();
                             } else {
                             	removePre();

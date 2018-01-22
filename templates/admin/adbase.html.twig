@@ -81,7 +81,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i>Contents Dashboard</a></li>
+                            <li><a href="{{path('manageArticle')}}"><i class="fa fa-pencil" aria-hidden="true"></i>Contents Dashboard</a></li>
+                            <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i>Files Dashboard</a></li>
                             <li><a href="{{ path('addArticle')}}"><i class="fa fa-plus" aria-hidden="true"></i>Add</a></li>
                         </ul>
                     </li>
@@ -95,13 +96,16 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <section class="content-header">
-              <h1>Dashboard</h1>
-              <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-              </ol>
-            </section>
+            {% block localisation %}<li class="active">Dashboard</li>
+                <section class="content-header">
+                  <h1>Dashboard</h1>
+                  <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+                    <li class="active">Dashboard</li>
+                  </ol>
+                </section>
+            {% endblock %}
+
             <!-- Main content -->
             <section class="content container-fluid">
                 {% block body %}

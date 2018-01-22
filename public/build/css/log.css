@@ -54,16 +54,19 @@
   position: relative;
   display: block;
   width: 100%;
-  height: 32px;
+  height: 38px;
   padding: 8px 0;
   line-height: 16px;
-  font-family: Roboto;
-  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
   background: transparent;
   border: none;
   -webkit-appearance: none;
   outline: none; }
 
+#pwd {
+  font-size: 10px;
+}
 .field::after, .field::before {
   content: '';
   height: 2px;

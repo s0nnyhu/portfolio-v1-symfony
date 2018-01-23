@@ -43,35 +43,48 @@ class AdminController extends Controller
         $formFile->handleRequest($request);
 
         if ($formFile->isSubmitted() && $formFile->isValid()) {
-            $fileData=$formFile->getData();
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($fileData);
-            $em->flush();
-            $fileToUpload = $formFile['file']->getData();
-            $file_name = $fileData->getFileName();
-            $file_ext = $fileData->getFileType();
-            /*
-            * $dir edited, recheck t
-            */
-            $dir=$this->getParameter('upload_directory');
-            $fileToUpload->move($dir, $file_name);
-            return new JsonResponse(["isOk" => "ok"]);
+            try {
+                $fileData=$formFile->getData();
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($fileData);
+                $em->flush();
+                $fileToUpload = $formFile['file']->getData();
+                $file_name = $fileData->getFileName();
+                $file_ext = $fileData->getFileType();
+                /*
+                * $dir edited, recheck t
+                */
+                $dir=$this->getParameter('upload_directory');
+                $fileToUpload->move($dir, $file_name);
+                return new JsonResponse(["isOk" => "ok"]);
+            } catch(\Exception $e) {
+                return $this->redirectToRoute('addArticle');
+            }
+
         } 
 
         $formArticle->handleRequest($request);
         if ($formArticle->isSubmitted() && $formArticle->isValid()) {
-            $articleData=$formArticle->getData();
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($articleData);
-            $em->flush();
-            $this->addFlash(
-                'added',
-                'Article has been added');
-            return $this->redirectToRoute('addArticle');
+            try {
+                $articleData=$formArticle->getData();
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($articleData);
+                $em->flush();
+            } catch(\Exception $e) {
+               $this->addFlash(
+                'notAdded',
+                'An error occured, article not added :[');
+                return $this->redirectToRoute('addArticle');
+            }
+                $this->addFlash(
+                        'added',
+                        'Article has been added');
+                return $this->redirectToRoute('addArticle');
+           
         } elseif($formArticle->isSubmitted() && $formArticle->isValid()==false) {
         	$this->addFlash(
                 'notAdded',
-                'An error occured, article not added :(');
+                'An error occured, article not added :[');
             return $this->redirectToRoute('addArticle');
         }
 
@@ -84,11 +97,16 @@ class AdminController extends Controller
      */
     public function manage()
     {
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
-        if (!$articles) {
-            throw $this->createNotFoundException(
-                'No artice found ');  
+        try {
+            $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+            if (!$articles) {
+                throw $this->createNotFoundException(
+                    'No artice found ');  
+            }
+        } catch (\Exception $e) {
+            return $this->render('admin/core/devnull.html.twig');
         }
+        
 
         foreach ($articles as $article) {
            $output[] = array($article->getTitle(), $article->getSlug());
@@ -99,7 +117,7 @@ class AdminController extends Controller
      /**
     * @Route("/admin/manage/edit/status/", name="editPublicStatus")
     */
-    public function test(Request $request) {
+    public function changePublicStatus(Request $request) {
         if($request->isXmlHttpRequest()) {
            $status= $request->query->get('status');
            $id= $request->query->get('id');

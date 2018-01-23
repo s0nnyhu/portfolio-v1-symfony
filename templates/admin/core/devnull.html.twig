@@ -1,0 +1,18 @@
+{% extends 'admin/adbase.html.twig' %}
+{% block mainTitle %} Add section {% endblock %}
+{% block localisation %}
+    <section class="content-header">
+      <h1>_Dev Null_</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li class="active">devNull</li>
+      </ol>
+    </section>
+{% endblock %}
+{% block body %}
+	 <div class="alert alert-danger alert-dismissable">
+        <i class="fa fa-warning"></i>
+        <button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+        An error occured, could not retrieve data from server :[
+    </div>
+{% endblock %}

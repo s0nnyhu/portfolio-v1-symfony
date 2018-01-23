@@ -8,31 +8,57 @@
     <div class="titleContact">
         <hr>
         <h4>Me contacter :</h4>
+        
+         
         <hr>
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-7">
-            <form id="contact" method="post">
+
+            {% for message in app.flashes('sent') %}
+                <div class="alert alert-success alert-dismissable">
+                    <i class="fa fa-check"></i>
+                    <button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('notSent') %}
+                <div class="alert alert-danger alert-dismissable">
+                    <i class="fa fa-warning"></i>
+                    <button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(formMessage, {'action': '/contact', 'attr': {'id': 'formContact'}}) }}
                 <div class="row">
                     <div class="col-xs-5 col-md- form-group">
-                        <input class="form-control" id="name" name="name" placeholder="Nom & Prénom" type="text" required autofocus />
+                        {{ form_label(formMessage.name, 'Nom:')  }}
+                        {{ form_errors(formMessage.name) }}
+                        {{ form_widget(formMessage.name, {'attr' : {'class': 'form-control', 'id': 'name', 'placeholder': 'Nom & Prénom', 'name': 'name'}}) }}
                     </div>
                     <div class="col-xs-7 col-md-7 form-group">
-                        <input class="form-control" id="email" name="email" placeholder="email@domain.com" type="email" required />
+                        {{ form_label(formMessage.email, 'Email:')  }}
+                        {{ form_errors(formMessage.email) }}
+                        {{ form_widget(formMessage.email, {'attr' : {'class': 'form-control', 'id': 'email', 'placeholder': 'email@domain.com', 'name': 'email'}}) }}
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-xs-12 col-md-12 form-group">
-                        <textarea class="form-control" id="message" name="message" placeholder="Message" rows="7"></textarea>
+                        {{ form_label(formMessage.message, 'Message:')  }}
+                        {{ form_errors(formMessage.message) }}
+                        {{ form_widget(formMessage.message, {'attr' : {'class': 'form-control', 'id': 'message', 'placeholder': 'Message', 'name': 'message', 'rows': '7'}}) }}
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-xs-6 col-md-6 form-group">
-                        <button class="btn btn-primary pull-left" type="submit">Submit</button>
+                        {{ form_widget(formMessage.send, {'attr': {'class': 'btn btn-primary pull-left'}, 'id': 'send'} ) }}
                     </div>
                 </div>
-            </form>
+            {{ form_end(formMessage) }}
         </div>
         <div class="col-xs-12 col-md-5">
             <div class="row">

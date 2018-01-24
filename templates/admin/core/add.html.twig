@@ -169,12 +169,14 @@
                         var btnUpload = document.getElementById('btnUpload');
                         btnUpload.classList.add('disabled');
                         xhr.onreadystatechange = function() {
-                            if (this.readyState == 4 && this.status == 200) {
-                                $.notify("Yay, your file has been uploaded :]", "success");
-                            	removePre();
-                            } else {
-                            	removePre();
-                            	$.notify("An error occured :(", "error");
+                            if (this.readyState === 4) {
+                                if (this.status === 200) {
+                                    $.notify("Yay, your file has been uploaded :]", "success");
+                                    removePre();
+                                } else {
+                                    removePre();
+                                    $.notify("An error occured :(", "error");
+                                }
                             }
                         };
                         var data = new FormData(formFile);

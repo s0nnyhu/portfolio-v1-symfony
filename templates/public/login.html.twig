@@ -10,10 +10,18 @@
         <br />
         <h4 style="color: grey;">Se connecter:</h4>
         <hr>
-		<form method="POST" action="/login" id="formLogin">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissable">
+                <i class="fa fa-warning"></i>
+                <button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                User ou mot de passe incorrect :[
+            </div>
+        {% endif %}
+       
+		<form method="POST" action="{{ path('login') }}" id="formLogin">
         <div class="field">
-            <label for="username" class="field-label">Username</label>
-            <input type="text" id="username" name="username" class="field-input">
+            <label for="user" class="field-label">Username</label>
+            <input type="text" id="user" name="user" class="field-input" value="{{ lastUsername }}" autofocus>
         </div>
 
         <div class="field">
@@ -21,8 +29,7 @@
             <input type="password" id="pwd" name="pwd" class="field-input">
         </div>
 		<br />
-		<!--<button type="submit" form="formLogin" class="btn-si btn-github">Se connecter </button>-->
-        <input type="submit" value="Envoyer">
+		<button type="submit" form="formLogin" class="btn-si btn-github">Se connecter </button><i class="fa fa-spinner fa-spin fa-2x fa-fw" style="color: #2191ea;"></i>
 		</form>
         <script>
             jQuery(function($) {

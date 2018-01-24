@@ -73,5 +73,24 @@ class AppController extends Controller
         }
         return $this->render('public/contact.html.twig', array("htmlTitle" => "Sonny Hu | Contact","mainTitle" => "Me contacter", 'formMessage' =>$formMessage->createView()));
     }
+
+    /**
+    *@Route("/getPost", name="getPost")
+    */
+    public function test(Request $request) {
+        $post = $request->request->get('hello');
+        if(isset($post)) {
+            return new Response("hello");
+        } else {
+             return $this->render("public/test.html.twig", self::setHtmlTitle(
+            "Sonny Hu | Skill", 
+            ":["));
+        }
+            
+        
+       
+    }
+
+
 }
 

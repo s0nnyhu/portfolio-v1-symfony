@@ -21,7 +21,15 @@
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('build/css/log.css') }}">
     <!-- Scrollbar Custom CSS -->
-
+<!-- 
+ <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Réalisations
+    <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+    </ul>
+</a>
+-->
 
 </head>
 
@@ -39,17 +47,17 @@
                 <li class="active">
                     <a href="{{ path('home') }}">Accueil</a>
                 </li>
+
                 <li>
-                    <a href="{{ path('skill') }}"">Competences</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Réalisations</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li><a href="#">Page 1</a></li>
-                        <li><a href="#">Page 2</a></li>
-                        <li><a href="#">Page 3</a></li>
-                    </ul>
+                    <a href="{{ path('skill') }}">Competences</a>
                 </li>
+
                 <li>
-                    <a href="{{ path('contact') }}"">Contact</a>
+                    <a href="#">Réalisations</a>
+                </li>
+
+                <li>
+                    <a href="{{ path('contact') }}">Contact</a>
                 </li>
             </ul>
             <ul class="mySocial">

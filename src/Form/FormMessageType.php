@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class FormMessageType extends AbstractType
@@ -18,8 +19,8 @@ class FormMessageType extends AbstractType
             ->add('name', TextType::class, array('attr' => array(
                 'autofocus' => true
                 )))
-            ->add('email', TextType::class)
-            ->add('message', TextareaType::class)
+            ->add('email', EmailType::class)
+            ->add('message', TextareaType::class, array( "attr" => array("minlength"=> "10")))
             ->add('send', submitType::class)
         ;
     }

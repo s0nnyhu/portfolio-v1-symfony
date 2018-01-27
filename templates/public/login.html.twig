@@ -8,7 +8,7 @@
 
     <div id="ctnLogin">
         <br />
-        <h4 style="color: grey;">Se connecter:</h4>
+        <h4 style="color: grey;">Se connecter: </h4>
         <hr>
         {% if error %}
             <div class="alert alert-danger alert-dismissable">
@@ -29,8 +29,17 @@
             <input type="password" id="pwd" name="pwd" class="field-input">
         </div>
 		<br />
-		<button type="submit" form="formLogin" class="btn-si btn-github">Se connecter </button><i class="fa fa-spinner fa-spin fa-2x fa-fw" style="color: #2191ea;"></i>
+		<button type="submit" form="formLogin" class="btn-si btn-github">Se connecter</button>
+
+
 		</form>
+        <script>
+            var loginTitle = document.querySelector('h4');
+            var btn = document.querySelector('.btn-github');
+            btn.onclick = function() {
+                $(loginTitle).append('<i class="fa fa-spinner fa-spin fa-1x fa-fw" style="color: black;"></i>')
+            }
+        </script>
         <script>
             jQuery(function($) {
                 //  Au focus

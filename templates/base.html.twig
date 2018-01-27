@@ -33,7 +33,7 @@
 
 </head>
 
-<body>
+<body onload="toggleCheck();">
 
     <div class="mainGlobal">
 
@@ -136,14 +136,16 @@
 
     <script type="text/javascript">
         var winWidth  = $(window).width();
-            $(window).resize(function() {
-                winWidth = $(window).width();
+        function toggleCheck() {
+             winWidth = $(window).width();
                 if(winWidth < 768) {
                     $('.glyphicon').addClass("glyphicon-menu-right");
                 } else {
                     $('.glyphicon').removeClass("glyphicon-menu-right");
                 }
-            });
+        };
+
+        window.onresize = toggleCheck;
         $(document).ready(function() {
           
             $('#sidebarCollapse').on('click', function() {

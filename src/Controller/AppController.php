@@ -44,7 +44,7 @@ class AppController extends Controller
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, ValidatorInterface $validator) {
+    public function contact(Request $request, ValidatorInterface $validator, \Swift_Mailer $mailer) {
         $message = new Message();
         $formMessage = $this->createForm(FormMessageType::class, $message);
         
@@ -52,11 +52,33 @@ class AppController extends Controller
 
         if ($formMessage->isSubmitted() && $formMessage->isValid()) {
                 $messageData = $formMessage->getData();
+                $message = nl2br($messageData->getMessage());
+                $email = $messageData->getEmail();
+                //Add to database
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($messageData);
                 $em->flush();
+                //Send email to admin
+                $mailAdmin = (new \Swift_Message('A message received husonny.fr'))
+                                ->setFrom('contact@husonny.fr')
+                                ->setTo(['contact@husonny.fr',
+                                        'husonny1@gmail.com'])
+                                ->setBody($message, 'text/html');
+                $mailer->send($mailAdmin);
+
+                //Send mail to visitor
+                $mailVisitor = (new \Swift_Message('Contact@husonny.fr'))
+                                ->setFrom('contact@husonny.fr')
+                                ->setTo($email)
+                                ->setBody($this->renderView('email/visitor.html.twig'), 'text/html');
+                $mailer->send($mailVisitor);
+
+                //Redirect
                 $this->addFlash('sent', 'Your message has been sent :]');
                 return $this->redirectToRoute('contact');
+                
+                return new Response ($message);
+
 
         } elseif($formMessage->isSubmitted() && $formMessage->isValid()==false) {
             $this->addFlash(
@@ -71,19 +93,9 @@ class AppController extends Controller
      * @Route("/test", name="test")
      */
 
-public function sendEmail(\Swift_Mailer $mailer)
+public function test()
 {
-    $message = (new \Swift_Message('Hello Email'))
-        ->setFrom('contact@husonny.fr')
-        ->setTo([
-          'contact@husonny.fr',
-          'debroot4@gmail.com' => 'Person 2 Name',
-        ])
-        ->setBody('You shsdsdsdsdsdsdsould see me from the profiler!')
-    ;
-
-    $mailer->send($message);
-
+   
     return new Response("je");
 }
 

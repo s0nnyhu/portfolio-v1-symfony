@@ -517,6 +517,9 @@ ul ul a {
     background: #404040;
 }
 
+.adMenu {
+    color:#989898;
+}
 /*standby
 #sidebar ul li.current {
     content:"HELLO";

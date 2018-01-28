@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %} Sonny Hu | {{ title }}{% endblock %}
+{% block mainTitle %}{{ title }}{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <article>
+            <div class="postTitle">
+            <h1 class="post-title entry-title"><span class="post_title_icon"></span>
+                <a href="#"> {{ title }}</a>
+            </h1>
+            </div>
+            <hr />
+            {{ content|raw }}
+
+            <hr class="articleSeparator" />
+        </article>
+    </div>
+{% endblock %}

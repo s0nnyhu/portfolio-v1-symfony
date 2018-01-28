@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use App\Entity\Article;
 class AppController extends Controller
 {
     /**
@@ -90,14 +90,23 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/article/{slug}", name="articleId")
      */
 
-public function test()
-{
-   
-    return new Response("je");
-}
+    public function test($slug, Request $request)
+    {
+        $article = $this->getDoctrine()
+                        ->getManager()
+                        ->getRepository(Article::class)
+                        ->findOneBy(
+                            ['slug' => $slug]);
+        if (!$article) {
+           return $this->render('public/devnull.html.twig',self::setHtmlTitle(
+                "Sonny Hu | Erreur", 
+                "Erreur"));
+        }
+        return $this->render('public/article.html.twig',array("title" => $article->getTitle(), "content" => $article->getContent()));
+    }
 
 }
 

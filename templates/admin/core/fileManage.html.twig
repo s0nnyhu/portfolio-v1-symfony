@@ -11,25 +11,20 @@
                 <thead>
                     <th>#</th>
                     <th>FileName</th>
+                    <th>Description</th>
                     <th>Extension</th>
                     <th>Size</th>
                     <th>Delete</th>
                 </thead>
                 <tbody>
-                    {%  for article in articles %}
+                    {%  for file in files %}
                         <tr>
-                            <td>{{ article.id }}</td>
-                            <td>{{ article.title }}</td>
-                            <td>{{ article.slug }}</td>
-                            {% if article.isPublic == 1 %}
-                                <td><input type="checkbox" id="myCheck" checked ></td>
-                            {% else %}
-                                <td><input type="checkbox"></td>
-                            {% endif %}
-                            <td style="display:flex; justify-content: space-around;">
-                                <a href="/delete/{{ article.id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
-                                <a href="/edit/{{ article.id }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-                            </td>
+                            <td>{{ file.id }}</td>
+                            <td>{{ file.fileName }}</td>
+                            <td>{{ file.fileDescription }}</td>
+                            <td>{{ file.fileType }}</td>
+                            <td>{{ file.fileSize }}</td>
+                            <td><input type="checkbox"></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -56,72 +51,6 @@
                     "bAutoWidth": false
                 });
                     } );
-            </script>
-            <script>
-                function getXMLHttpRequest() {
-                    var xhr = null; 
-                    if (window.XMLHttpRequest || window.ActiveXObject) {
-                        if (window.ActiveXObject) {
-                            try {
-                                xhr = new ActiveXObject("Msxml2.XMLHTTP");
-                            } catch(e) {
-                                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                            }
-                        } else {
-                            xhr = new XMLHttpRequest(); 
-                        }
-                    } else {
-                        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-                        return null;
-                    }
-                    return xhr;
-                }
-                $(document).on('change', 'input[type=checkbox]', function(e) {
-
-                    if(this.checked) {
-                        e.preventDefault();
-                        var id = this.closest('tr').firstElementChild.innerHTML;
-                        console.log(id);
-                        var xhr=getXMLHttpRequest();
-                        xhr.open('POST', '/admin/manage/edit/status/?id='+id+'&status=1', true);
-                        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-                        console.log(xhr.readyState);
-                        xhr.onreadystatechange = function() {
-                            if(xhr.readyState === 4) {
-                                console.log("ok 4");
-                                if (xhr.status === 200) {
-                                    console.log(xhr.responseText);
-                                    $.notify('#'+id + ": Public status has been changed to public", "success");
-                                } else {
-                                $.notify("An error occured!", "error");
-                                }
-                            }   
-                        }
-                        xhr.send();
-                    } 
-
-                    else {
-                        e.preventDefault();
-                        var id = this.closest('tr').firstElementChild.innerHTML;
-                        console.log(id);
-                        var xhr=getXMLHttpRequest();
-                        xhr.open('POST', '/admin/manage/edit/status/?id='+id+'&status=0', true);
-                        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-                        xhr.onreadystatechange = function() {
-                            if(xhr.readyState === 4) {
-                                console.log("ok 4");
-                                if (xhr.status === 200) {
-                                    console.log(xhr.responseText);
-                                    $.notify('#'+id + ": Public status has been changed to non public", "success");
-                                } else {
-                                $.notify("An error occured!", "error");
-                                }
-                            }   
-                        }
-                        xhr.send();
-                    }
-                })
-
             </script>
 
 {% endblock %}

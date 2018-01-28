@@ -1,12 +1,13 @@
 {% extends 'admin/adbase.html.twig' %}
-{% block mainTitle %} Add section {% endblock %}
+{% block mainTitle %} Edit section {% endblock %}
 {% block localisation %}
     <section class="content-header">
       <h1>_Add_</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
         <li>Contents</li>
-        <li class="active">Add</li>
+        <li>Edit</li>
+        <li class="active">{{ article.id }}</li>
       </ol>
     </section>
 {% endblock %}
@@ -15,10 +16,10 @@
     <div class="col-md-9" style="padding:0 10px;">
     	<div class="box box-primary">
     		<div class="box-header">
-    			<h3 class="box-title">Some news to add?</h3>
+    			<h3 class="box-title">Editing article: {{ article.title }}</h3>
     		</div>
     		<div class="box-body">
-                {% for message in app.flashes('added') %}
+                {% for message in app.flashes('updated') %}
                     <div class="alert alert-success alert-dismissable">
                     	<i class="fa fa-check"></i>
                     	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -26,7 +27,7 @@
                     </div>
                 {% endfor %}
 
-                {% for message in app.flashes('notAdded') %}
+                {% for message in app.flashes('notUpdated') %}
                     <div class="alert alert-danger alert-dismissable">
                     	<i class="fa fa-warning"></i>
                     	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -34,11 +35,11 @@
                     </div>
                 {% endfor %}
 
-                {{ form_start(formArticle, {'action': '/admin/add', 'attr': {'class': 'formArticleClass'}}) }}
+                {{ form_start(formArticle, {'attr': {'class': 'formArticleClass'}}) }}
                 <div class="form-group">
                     {{ form_label(formArticle.title, 'Title:')  }}
                     {{ form_errors(formArticle.title) }}
-                    {{ form_widget(formArticle.title, {'attr' : {'class': 'form-control'}}) }}
+                    {{ form_widget(formArticle.title, {'attr' : {'class': 'form-control', 'value': article.title}}) }}
                 </div>
 
                 <div class="form-group">
@@ -52,13 +53,17 @@
                     {{ form_label(formArticle.isPublic, 'Is Public:')  }}
                     <br/>
                     {{ form_errors(formArticle.isPublic) }}
-                    {{ form_widget(formArticle.isPublic, {'attr' : {'class': 'minimal'}})}}
+                    {% if article.isPublic == 1 %}
+                        {{ form_widget(formArticle.isPublic, {'attr': {'class': 'minimal', 'checked': 'checked'}}) }}
+                    {% else %}
+                        {{ form_widget(formArticle.isPublic, {'attr' : {'class': 'minimal'}})}}
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     {{ form_label(formArticle.slug, 'Link')  }}
                     {{ form_errors(formArticle.slug) }}
-                    {{ form_widget(formArticle.slug, {'attr' : {'class': 'form-control'}}) }}
+                    {{ form_widget(formArticle.slug, {'attr' : {'class': 'form-control', 'value': article.slug}}) }}
                 </div>
 
                 <!--<div class="form-group">

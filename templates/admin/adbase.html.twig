@@ -82,7 +82,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{path('manageArticle')}}"><i class="fa fa-pencil" aria-hidden="true"></i>Contents Dashboard</a></li>
-                            <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i>Files Dashboard</a></li>
+                            <li><a href="{{path('manageFile')}}"><i class="fa fa-pencil" aria-hidden="true"></i>Files Dashboard</a></li>
                             <li><a href="{{ path('addArticle')}}"><i class="fa fa-plus" aria-hidden="true"></i>Add</a></li>
                         </ul>
                     </li>
@@ -92,6 +92,9 @@
                 <!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
+            
+                <li><a href="{{ path('home') }}"><i class="glyphicon glyphicon-chevron-left" aria-hidden="true"></i><span>Back home</span></a>
+            
         </aside>
 
         <!-- Content Wrapper. Contains page content -->

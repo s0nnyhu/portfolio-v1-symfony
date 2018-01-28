@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ htmlTitle }}{% endblock %}
+{% block mainTitle %}{{ mainTitle }}{% endblock %}
+
+
+{% block body %}
+	 <div class="alert alert-danger alert-dismissable">
+        <i class="fa fa-warning"></i>
+        <button class="close" data-dismiss="alert" aria-hidden="true">x</button>
+        La page demandée n'existe pas!
+    </div>
+{% endblock %}

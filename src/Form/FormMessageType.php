@@ -21,7 +21,7 @@ class FormMessageType extends AbstractType
                 )))
             ->add('email', EmailType::class)
             ->add('message', TextareaType::class, array( "attr" => array("minlength"=> "10")))
-            ->add('send', submitType::class)
+            ->add('send', submitType::class, array('label' => 'Envoyer'))
         ;
     }
 

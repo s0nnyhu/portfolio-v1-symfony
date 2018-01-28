@@ -27,8 +27,8 @@
                                 <td><input type="checkbox"></td>
                             {% endif %}
                             <td style="display:flex; justify-content: space-around;">
-                                <a href="/delete/{{ article.id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
-                                <a href="/edit/{{ article.id }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+                                <a href="{{ path('deleteArticle', { 'id': article.id }) }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a>
+                                <a href="{{ path('editArticle', { 'id': article.id }) }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

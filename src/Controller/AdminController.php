@@ -20,14 +20,26 @@ use App\Repository\ArticleRepository;
 
 class AdminController extends Controller
 {
+
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/shu", name="shu")
      */
     public function index()
     {
         // replace this line with your own code!
+        return $this->redirectToRoute('dashboard');
+    }
+
+
+    /**
+     * @Route("/admin/dashboard", name="dashboard")
+     */
+    public function dashboard()
+    {
+        // replace this line with your own code!
         return $this->render('admin/adbase.html.twig');
     }
+
 
     /**
      * @Route("/admin/add", name="addArticle")
@@ -93,9 +105,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/manage", name="manageArticle")
+     * @Route("/admin/manage/article", name="manageArticle")
      */
-    public function manage()
+    public function manageArticle()
     {
         try {
             $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
@@ -114,7 +126,28 @@ class AdminController extends Controller
         return $this->render('admin/core/manage.html.twig', array('articles' => $articles));
     }
 
-     /**
+
+    /**
+     * @Route("/admin/manage/file", name="manageFile")
+     */
+    public function manageFile()
+    {
+        try {
+            $files = $this->getDoctrine()->getRepository(File::class)->findAll();
+            if (!$files) {
+                throw $this->createNotFoundException(
+                    'No artice found ');  
+            }
+        } catch (\Exception $e) {
+            return $this->render('admin/core/devnull.html.twig');
+        }
+        
+
+        return $this->render('admin/core/fileManage.html.twig', array('files' => $files));
+    }
+
+
+    /**
     * @Route("/admin/manage/edit/status/", name="editPublicStatus")
     */
     public function changePublicStatus(Request $request) {
@@ -127,4 +160,87 @@ class AdminController extends Controller
             return New Response("Not ajax request");
         }
     }
+
+    /**
+     * @Route("/admin/manage/article/edit/{id}", name="editArticle", requirements={"id"="\d+"})
+     */
+
+    public function editArticle($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        $formArticle = $this->createForm(FormArticleType::class, $article, array('attr' => ['id' => 'task-form'],'upOrAdd'=>'Update this'));
+        if (!$article) {
+            return ('admin/core/devnull.html.twig');
+        }
+
+        //Manage file form and submit
+        $file = new File(); 
+        $formFile = $this->createForm(FormFileType::class, $file, ['attr' => ['id' => 'formFile']]);
+        $formFile->handleRequest($request);
+
+        if ($formFile->isSubmitted() && $formFile->isValid()) {
+            try {
+                $fileData=$formFile->getData();
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($fileData);
+                $em->flush();
+                $fileToUpload = $formFile['file']->getData();
+                $file_name = $fileData->getFileName();
+                $file_ext = $fileData->getFileType();
+                /*
+                * $dir edited, recheck t
+                */
+                $dir=$this->getParameter('upload_directory');
+                $fileToUpload->move($dir, $file_name);
+                return new JsonResponse(["isOk" => "ok"]);
+            } catch(\Exception $e) {
+                return $this->redirectToRoute('editArticle', array('id' => $id));
+            }
+        } 
+
+        //Manage article update
+        $formArticle->handleRequest($request);
+        if ($formArticle->isSubmitted() && $formArticle->isValid()) {
+            try {
+                $articleData=$formArticle->getData();
+                $em->flush();
+            } catch(\Exception $e) {
+               $this->addFlash(
+                'notUpdated',
+                'An error occured, update failed :[');
+                return $this->redirectToRoute('editArticle', array('id' => $id));
+            }
+                $this->addFlash(
+                        'updated',
+                        'Article has been updated successfully');
+                return $this->redirectToRoute('editArticle', array('id' => $id));
+           
+        } elseif($formArticle->isSubmitted() && $formArticle->isValid()==false) {
+            $this->addFlash(
+                'notUpdated',
+               'An error occured, update failed :[');
+            return $this->redirectToRoute('editArticle', array('id' => $id));
+        }
+
+        return $this->render('admin/core/editArticle.html.twig', array('formArticle' =>$formArticle->createView(), 'formFile' =>$formFile->createView(), 'article' => $article));
+
+    }
+
+    /**
+    *@Route("/admin/manage/article/delete/{id}", name="deleteArticle", requirements={"id"="\d+"})
+    */
+    public function deleteArticle($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        if(!$article) {
+            throw $this->createNotFoundException(
+                'Article not found');
+        }
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('manageArticle');
+    }
+
+    
 }

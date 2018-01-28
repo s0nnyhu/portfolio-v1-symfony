@@ -32,7 +32,10 @@ class File
      */
     private $fileDescription;
 
-
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $fileSize;
 
     /**
      * Gets the value of id.
@@ -126,6 +129,30 @@ class File
     public function setFileDescription($fileDescription)
     {
         $this->fileDescription = $fileDescription;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of fileDescription.
+     *
+     * @return mixed
+     */
+    public function getFileSize()
+    {
+        return $this->fileSize;
+    }
+
+    /**
+     * Sets the value of fileDescription.
+     *
+     * @param mixed $fileDescription the file description
+     *
+     * @return self
+     */
+    public function setFileSize($fileSize)
+    {
+        $this->fileSize = $fileSize;
 
         return $this;
     }

@@ -20,6 +20,7 @@ class FormFileType extends AbstractType
             ->add('fileName', TextType::class, array('required' =>false))
             ->add('fileType', TextType::class, array('required' =>false))
             ->add('fileDescription', TextType::class, array('required' =>false))
+            ->add('fileSize', TextType::class, array('required' =>false, 'attr' => array('readonly' => true)))
             ->add('file', FileType::class, array('label' => 'File', 'mapped' =>false, 'required' => false))
             ->add('Upload', submitType::class, array('label' => 'Upload'))
         ;

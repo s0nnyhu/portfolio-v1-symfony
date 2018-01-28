@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Article;
+use App\Service\GetClientInfo;
+
 class AppController extends Controller
 {
     /**
@@ -23,9 +25,9 @@ class AppController extends Controller
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function index(GetClientInfo $getClientInfo)
     {
-        // replace this line with your own code!
+        $getClientInfo->getClientData();
         return $this->render('public/home.html.twig', self::setHtmlTitle(
             "Sonny Hu | Home", 
             ""));

@@ -95,7 +95,7 @@ class AppController extends Controller
      * @Route("/article/{slug}", name="articleId")
      */
 
-    public function test($slug, Request $request)
+    public function articleView($slug, Request $request)
     {
         $article = $this->getDoctrine()
                         ->getManager()
@@ -108,6 +108,26 @@ class AppController extends Controller
                 "Erreur"));
         }
         return $this->render('public/article.html.twig',array("title" => $article->getTitle(), "content" => $article->getContent()));
+    }
+
+
+    /**
+     * @Route("/projet/{page}", name="projet", defaults={"page"="1"})
+     */
+
+    public function articleList($page, Request $request)
+    {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        if (!$articles) {
+            return $this->render('public/devnull.html.twig',self::setHtmlTitle(
+                "Sonny Hu | Erreur", 
+                "Erreur"));
+        }
+
+        $articlesPaginated=$this->get('knp_paginator')->paginate(
+            $articles, $request->query->get('page', $page),4);
+        $articlesPaginated->setUsedRoute('projet');
+        return $this->render('public/project.html.twig', array('articles' => $articlesPaginated));
     }
 
 }

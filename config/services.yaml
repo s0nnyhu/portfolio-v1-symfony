@@ -4,6 +4,10 @@ parameters:
     locale: 'en'
     upload_directory: '%kernel.project_dir%/public/upload'
 
+knp_paginator:
+    template:
+        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
 services:
     # default configuration for services in *this* file
     _defaults:

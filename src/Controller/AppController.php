@@ -112,7 +112,7 @@ class AppController extends Controller
 
 
     /**
-     * @Route("/projet/{page}", name="projet", defaults={"page"="1"})
+     * @Route("/projets/{page}", name="projets", defaults={"page"="1"})
      */
 
     public function articleList($page, Request $request)
@@ -125,8 +125,8 @@ class AppController extends Controller
         }
 
         $articlesPaginated=$this->get('knp_paginator')->paginate(
-            $articles, $request->query->get('page', $page),4);
-        $articlesPaginated->setUsedRoute('projet');
+            $articles, $request->query->get('page', $page),6);
+        $articlesPaginated->setUsedRoute('projets');
         return $this->render('public/project.html.twig', array('articles' => $articlesPaginated));
     }
 

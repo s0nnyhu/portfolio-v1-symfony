@@ -39,7 +39,7 @@
                 <div class="form-group">
                     {{ form_label(formArticle.title, 'Title:')  }}
                     {{ form_errors(formArticle.title) }}
-                    {{ form_widget(formArticle.title, {'attr' : {'class': 'form-control', 'value': article.title}}) }}
+                    {{ form_widget(formArticle.title, {'attr' : {'class': 'form-control'}}) }}
                 </div>
 
                 <div class="form-group">
@@ -48,23 +48,24 @@
                     {{ form_errors(formArticle.content) }}
                     {{ form_widget(formArticle.content, { 'id': 'ckeditor', 'attr': {'class': 'form-control', 'placeholder': 'Write something here'}}) }}
                 </div>
-
-                <div class="form-group">
-                    {{ form_label(formArticle.isPublic, 'Is Public:')  }}
-                    <br/>
-                    {{ form_errors(formArticle.isPublic) }}
-                    {% if article.isPublic == 1 %}
-                        {{ form_widget(formArticle.isPublic, {'attr': {'class': 'minimal', 'checked': 'checked'}}) }}
-                    {% else %}
-                        {{ form_widget(formArticle.isPublic, {'attr' : {'class': 'minimal'}})}}
-                    {% endif %}
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            {{ form_label(formArticle.slug, 'Link')  }}
+                            {{ form_errors(formArticle.slug) }}
+                            {{ form_widget(formArticle.slug, {'attr' : {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_label(formArticle.isPublic, 'Is Public:')  }}
+                            <br/>
+                            {{ form_errors(formArticle.isPublic) }}
+                            {{ form_widget(formArticle.isPublic, {'attr' : {"width":"100px"}})}}
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    {{ form_label(formArticle.slug, 'Link')  }}
-                    {{ form_errors(formArticle.slug) }}
-                    {{ form_widget(formArticle.slug, {'attr' : {'class': 'form-control', 'value': article.slug}}) }}
-                </div>
 
                 <!--<div class="form-group">
                     {{ form_label(formArticle.attachment, 'Attachment')  }}
@@ -75,10 +76,30 @@
                 <div>
                     {{ form_widget(formArticle.Publish, {'attr': {'class': 'btn btn-primary'}, 'id': 'ckeditor'} ) }}
                 </div>
-                {{ form_end(formArticle) }}
+               
                </div>
          </div>
     </div>
+    <div class="col-md-3">
+        <div class="box box-primary box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Front view</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                        {{ form_label(formArticle.frontDescription, 'Description:')  }}
+                        {{ form_errors(formArticle.frontDescription) }}
+                        {{ form_widget(formArticle.frontDescription, {'attr' : {'class': 'form-control'}}) }}
+                </div>
+               <div class="form-group">
+                        {{ form_label(formArticle.frontUrlImg, 'Front image url:')  }}
+                        {{ form_errors(formArticle.frontUrlImg) }}
+                        {{ form_widget(formArticle.frontUrlImg, {'attr' : {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+         {{ form_end(formArticle) }}
 
     <div class="col-md-3">
     	<div class="box box-primary">

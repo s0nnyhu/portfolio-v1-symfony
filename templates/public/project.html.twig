@@ -5,7 +5,32 @@
 
 {% block body %}
  <div style="display:grid;grid-template-columns:35% 35% 35%;">
-    <div>
+    {% for article in articles %}
+
+        <div class="project">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{path('editArticle', {'id': article.id }) }}"><i class="fa fa-pencil" style="font-size:24px; padding: 5px 5px;" aria-hidden="true"></i></a>
+            {% endif %}
+             
+                <div class="projectContent">
+                <div class="overlay"></div>
+                <img src="{{ article.frontUrlImg }}" alt="Avatar" style="width:100%">
+                <div class="projectContent-details fadeIn-bottom">
+                    <a href="#"><h3 class="content-title">View</h3></a>
+                </div>
+            </div>
+            <div class="container">
+                <h4><b><a href="{{ path('articleId', { 'slug': article.slug }) }}">{{ article.title }}</a></b></h4> 
+                <p>{{ article.frontDescription }}</p>
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+</div>
+<div class="text-center">{{ knp_pagination_render(articles) }}</div>
+    <!--<div>
         <div class="project">
                 <div class="projectContent">
                 <div class="overlay"></div>

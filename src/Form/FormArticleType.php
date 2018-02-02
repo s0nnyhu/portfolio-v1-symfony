@@ -23,6 +23,8 @@ class FormArticleType extends AbstractType
             ->add('content', TextareaType::class, array('required' =>false))
             ->add('isPublic', CheckboxType::class, array('required' =>false))
             ->add('slug', TextType::class, array('required' =>false))
+            ->add('frontDescription', TextareaType::class, array('required' =>false))
+            ->add('frontUrlImg', TextType::class, array('required' =>false))
             ->add('attachment', FileType::class, array('mapped' => false))
             ->add('Publish', submitType::class, array('label' => $options['upOrAdd']))
         ;

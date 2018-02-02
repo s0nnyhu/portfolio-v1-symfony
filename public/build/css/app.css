@@ -643,6 +643,7 @@ body {
     width: 80%;
     border-top: 4px solid #26A69A;
     position:relative;
+    margin: 10px;
 
 }
 
@@ -658,6 +659,7 @@ body {
 }
 .container {
     padding: 2px 16px;
+    width:100%;
 }
 
 
@@ -727,6 +729,9 @@ body {
   top: 80%;
 }
 
+.project a:visited{
+    color: #4682B4;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES

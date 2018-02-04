@@ -16,6 +16,7 @@ use App\Entity\File;
 use App\Form\FormFileType;
 use App\Form\FormArticleType;
 use App\Repository\ArticleRepository;
+use App\Service\GetClientInfo;
 
 
 class AdminController extends Controller
@@ -31,13 +32,35 @@ class AdminController extends Controller
     }
 
 
+
+    /**
+     * @Route("/browser", name="getBrowser")
+     */
+    public function browserStat(GetClientInfo $clientInfo)
+    {
+        $browsers = $clientInfo->getBrowserStats();
+        return new Response(var_dump(array_keys($browsers)));
+    }
+
+    /**
+     * @Route("/os", name="getOs")
+     */
+    public function osStat(GetClientInfo $clientInfo)
+    {
+        $os = $clientInfo->getOsStats();
+        return new JsonResponse($os);
+
+    }
+
+
+
     /**
      * @Route("/admin/dashboard", name="dashboard")
      */
     public function dashboard()
     {
-        // replace this line with your own code!
-        return $this->render('admin/adbase.html.twig');
+
+        return $this->render('admin/core/dashboard.html.twig');
     }
 
 

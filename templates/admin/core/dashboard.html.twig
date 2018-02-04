@@ -1,275 +1,290 @@
 {% extends 'admin/adbase.html.twig' %}
-{% block mainTitle %} Add section {% endblock %}
+{% block mainTitle %} Dashboard {% endblock %}
 {% block localisation %}
     <section class="content-header">
-      <h1>_Add_</h1>
+      <h1>Overview</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
         <li>Contents</li>
-        <li class="active">Add</li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
 {% endblock %}
 {% block body %}
 
-    <div class="col-md-9" style="padding:0 10px;">
-    	<div class="box box-primary">
-    		<div class="box-header">
-    			<h3 class="box-title">Some news to add?</h3>
-    		</div>
-    		<div class="box-body">
-                {% for message in app.flashes('added') %}
-                    <div class="alert alert-success alert-dismissable">
-                    	<i class="fa fa-check"></i>
-                    	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                    	{{ message }}
+<div class="row" style="padding:0 10px;">
+    <!-- Left col -->
+    <div class="col-md-6">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Visitors Report</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
                     </div>
-                {% endfor %}
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+    <div class="col-md-3">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">OS</h3>
 
-                {% for message in app.flashes('notAdded') %}
-                    <div class="alert alert-danger alert-dismissable">
-                    	<i class="fa fa-warning"></i>
-                    	<button class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                    	{{ message }}
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+                        <canvas id="pie-chart" width="800" height="450"></canvas>
                     </div>
-                {% endfor %}
-
-                {{ form_start(formArticle, {'action': '/admin/add', 'attr': {'class': 'formArticleClass'}}) }}
-                <div class="form-group">
-                    {{ form_label(formArticle.title, 'Title:')  }}
-                    {{ form_errors(formArticle.title) }}
-                    {{ form_widget(formArticle.title, {'attr' : {'class': 'form-control'}}) }}
                 </div>
-
-                <div class="form-group">
-                    {{ form_label(formArticle.content, 'Content:')  }}
-                    <br/>
-                    {{ form_errors(formArticle.content) }}
-                    {{ form_widget(formArticle.content, { 'id': 'ckeditor', 'attr': {'class': 'form-control', 'placeholder': 'Write something here'}}) }}
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(formArticle.isPublic, 'Is Public:')  }}
-                    <br/>
-                    {{ form_errors(formArticle.isPublic) }}
-                    {{ form_widget(formArticle.isPublic, {'attr' : {'class': 'minimal'}})}}
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(formArticle.slug, 'Link')  }}
-                    {{ form_errors(formArticle.slug) }}
-                    {{ form_widget(formArticle.slug, {'attr' : {'class': 'form-control'}}) }}
-                </div>
-
-                <!--<div class="form-group">
-                    {{ form_label(formArticle.attachment, 'Attachment')  }}
-                    {{ form_errors(formArticle.attachment) }}
-                    {{ form_widget(formArticle.attachment, {'attr' : {'class': 'form-control'}, 'id': 'damn'}) }}
-                </div>-->
-
-                <div>
-                    {{ form_widget(formArticle.Publish, {'attr': {'class': 'btn btn-primary'}, 'id': 'ckeditor'} ) }}
-                </div>
-                {{ form_end(formArticle) }}
-               </div>
-         </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
     </div>
 
     <div class="col-md-3">
-    	<div class="box box-primary">
-    		<div class="box-header">
-    			<h3 class="box-title">Somethin'to upload?</h3>
-    		</div>
-    		<div class="box-body">
-                {{ form_start(formFile, {'action': '#', 'attr': {'class': 'formFileClass'}}) }}
-                 <div class="form-group">
-                    {{ form_label(formFile.fileName, 'File attributes are required!')  }}
-                    {{ form_errors(formFile.fileName) }}
-                    {{ form_widget(formFile.fileName, {'attr' : {'class': 'form-control', 'placeholder': 'Name'}}) }}
-                </div>
-                <div class="form-group">
-                    <!--{{ form_label(formFile.fileType)  }}-->
-                    {{ form_errors(formFile.fileType) }}
-                    {{ form_widget(formFile.fileType, {'attr' : {'class': 'form-control', 'placeholder': 'Type'}}) }}
-                </div>
-                <div class="form-group">
-                    <!--{{ form_label(formFile.fileDescription)  }}-->
-                    {{ form_errors(formFile.fileDescription) }}
-                    {{ form_widget(formFile.fileDescription, {'attr' : {'class': 'form-control', 'placeholder': 'Description'}}) }}
-                </div>
-                <div class="form-group">
-                    <!--{{ form_label(formFile.fileDescription)  }}-->
-                    {{ form_errors(formFile.fileSize) }}
-                    {{ form_widget(formFile.fileSize, {'attr' : {'class': 'form-control', 'placeholder': 'Size'}}) }}
-                </div>
-                <div class="form-group">
-                    <!--{{ form_label(formFile.fileDescription)  }}-->
-                    {{ form_errors(formFile.file) }}
-                    {{ form_widget(formFile.file, {'attr' : {'class': 'form-control inputFile', 'onchange': "previewContent(event)"}}) }}
-                </div>
-                 <div>
-                    {{ form_widget(formFile.Upload, {'attr': {'class': 'btn btn-primary'}, 'id': 'btnUpload'} ) }}
-                    <button class="btn btn-danger" type="button" id="resetPreview">Reset</button>
-                </div>
-                {{ form_end(formFile) }}
+        <!-- MAP & BOX PANE -->
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Browser</h3>
 
-                <br/>
-                <div id="divPreview" style="display:flex;justify-content:center;align-items:center;"></div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
         </div>
-	</div>
-    	<!--Live slug-->
-        <script>
-            var objToSetSlug = document.querySelector('#form_article_slug');
-            var objToGetSlug = document.querySelector('#form_article_title');
-            objToGetSlug.onkeyup = slugify;
-            function slugify() {
-                var slug = objToGetSlug.value;
-                slug = slug.replace(/[^a-z0-9-]/gi, '-').toLowerCase();
-                objToSetSlug.value = slug;
+            <!-- /.box-body -->
+    </div>
+</div>
+
+<div class="row" style="padding:0 10px;">
+    <!-- Left col -->
+    <div class="col-md-6">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Map view</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+    <div class="col-md-3">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">IP Addresses</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+
+    <div class="col-md-3">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Browser</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+</div>
+
+<div class="row" style="padding:0 10px;">
+    <!-- Left col -->
+    <div class="col-md-5">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Last messages</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+    <div class="col-md-4">
+        <!-- MAP & BOX PANE -->
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">Quick notes</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </div>
+            <!-- /.box-body -->
+    </div>
+
+    
+</div>
+<script src="{{ asset('build/js/chart.min.js') }}"></script>
+<script>
+function getXMLHttpRequest() {
+    var xhr = null; 
+    if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
-        </script>
+        } else {
+            xhr = new XMLHttpRequest(); 
+        }
+    } else {
+        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+        return null;
+    }
+        return xhr;
+}
+</script>
+<script>
 
-        <!--Implement CKEditor-->
-        <script>
-            CKEDITOR.replace('ckeditor', {
-                height: 350
-            } );
-        </script>
-
-        <!--Remove data in file form-->
-        <script>
-            function removePre() {
-                var fileInputName = document.querySelector('#form_file_fileName');
-                var fileInputType = document.querySelector('#form_file_fileType');
-                var fileInputDes = document.querySelector('#form_file_fileDescription');
-                var fileInputSize = document.querySelector('#form_file_fileSize');
-                var img = document.getElementById('imgPreview');
-                var btnUpload = document.getElementById('btnUpload');
-                var inputFile = document.querySelector('.inputFile');
-                inputFile.value = '';
-                img.remove();
-                btnUpload.classList.remove('disabled');
-                fileInputName.value = "";
-                fileInputType.value = "";
-                fileInputDes.value = "";
-                fileInputSize.value = "";
-            }
-        </script>
-
-        <!--Ajax set public status-->
-        <script>
-        (function() {
-                function getXMLHttpRequest() {
-                    var xhr = null; 
-                    if (window.XMLHttpRequest || window.ActiveXObject) {
-                        if (window.ActiveXObject) {
-                            try {
-                                xhr = new ActiveXObject("Msxml2.XMLHTTP");
-                            } catch(e) {
-                                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                            }
-                        } else {
-                            xhr = new XMLHttpRequest(); 
-                        }
-                    } else {
-                        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-                        return null;
-                    }
-                    return xhr;
+    var os;
+    
+    document.addEventListener("DOMContentLoaded", function() { 
+        var xhr = getXMLHttpRequest();
+        xhr.open('GET', '/os', true);
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    os = xhr.responseText;
                 }
-
-                var formFile = document.querySelector('#formFile')
-
-                formFile.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    if (document.querySelector('.inputFile').files.length == 0) {
-                        alert('Select a file');
-                    }
-                    else { 
-                        var xhr=getXMLHttpRequest();
-                        xhr.open('POST', '/admin/add', true);
-                        var btnUpload = document.getElementById('btnUpload');
-                        btnUpload.classList.add('disabled');
-                        xhr.onreadystatechange = function() {
-                            if (this.readyState === 4) {
-                                if (this.status === 200) {
-                                    $.notify("Yay, your file has been uploaded :]", "success");
-                                    removePre();
-                                } else {
-                                    removePre();
-                                    $.notify("An error occured :(", "error");
-                                }
-                            }
-                        };
-                        var data = new FormData(formFile);
-                        xhr.setRequestHeader('X-Requested-With', 'xmlhttprequest');
-                        xhr.send(data);
-                    }
-                } )
-        })();
-        </script>
-        
-        <!--Preview img in file form-->
-        <script>
-            var filename;
-            var fileInputName = document.querySelector('#form_file_fileName');
-            var fileInputType = document.querySelector('#form_file_fileType');
-            var fileInputDes = document.querySelector('#form_file_fileDescription');
-            var fileInputSize = document.querySelector('#form_file_fileSize');
-            function previewContent(event) {
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var img = document.createElement('img');
-                    img.setAttribute('id', 'imgPreview');
-                    img.classList.add('img-thumbnail')
-                    var divPreview = document.getElementById('divPreview');
-                    divPreview.append(img);
-                    var output = document.getElementById('imgPreview');
-                    filename = event.target.files[0].name;
-                    imgSrc=checkExt(filename);
-                    ext = filename.split(/[.]+/).pop();
-                    fileInputName.value = filename;
-                    fileInputType.value = ext;
-                    fileInputDes.value = "Nothin";
-                    fileInputSize.value =  Math.round((event.target.files[0].size / 1024)) + " Ko";
-                    if (imgSrc == "nothing") {
-                        output.src=reader.result;
-                    } else {
-                        output.src=imgSrc;
-                    }
-                    
-                    filename = event.target.files[0].name;
-                }
-                reader.readAsDataURL(event.target.files[0]);
             }
+        }
+        xhr.setRequestHeader('X-Requested-With', 'xmlhttprequest');
+        xhr.send();
+    });
+</script>
+<script>
+    var jsonfile = {
+       "jsonarray": [{
+          "name": "Joe",
+          "age": 12
+       }, {
+          "name": "Tom",
+          "age": 14
+       }]
+    };
 
-            function checkExt(filename) {
-            ext = filename.split(/[.]+/).pop();
-            var url;
-                switch (ext.toLowerCase()) {
-                    case "pdf":
-                            url="";
-                            break;
-                    case "docx":
-                            url="";
-                            break;
-                    default:
-                            url="nothing";
-                }
-                return url;
-            }
-        </script>
-        
-        <!--Reset button in file form-->
-        <script>
-            var fileInputName = document.querySelector('#form_file_fileName');
-            var fileInputType = document.querySelector('#form_file_fileType');
-            var fileInputDes = document.querySelector('#form_file_fileDescription');
-            var fileInputSize = document.querySelector('#form_file_fileSize');
-            var reset = document.querySelector('#resetPreview')
-            reset.addEventListener('click', removePre);
-            
-        </script>
-
+    new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Chrome", "Firefox", "Opera", "IE", "Safari", "Others"],
+      datasets: [{
+        label: "Population (millions)",
+        backgroundColor: ["#00cc44", "#ffa31a","#ff5c33","#008ae6","#e6f0ff", "#e6e6e6"],
+        data: [2478,5267,734,784,433, 533]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Web Browsers'
+      }
+    }
+});
+</script>
 {% endblock %}

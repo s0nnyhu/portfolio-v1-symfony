@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Article;
 use App\Service\GetClientInfo;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AppController extends Controller
 {
@@ -25,14 +26,19 @@ class AppController extends Controller
     /**
      * @Route("/", name="home")
      */
-    public function index(GetClientInfo $getClientInfo)
-    {
-        $getClientInfo->getClientData();
+    public function index(GetClientInfo $getClientInfo, SessionInterface $session) {   
+
+        if($session->isStarted() === false) {
+            $session->start();
+            $session->set('ip', $getClientInfo->getIp());
+            $getClientInfo->getClientData($session);
+        }
+        
         return $this->render('public/home.html.twig', self::setHtmlTitle(
             "Sonny Hu | Home", 
             ""));
-    }
 
+    }
 
  	/**
      * @Route("/skill", name="skill")

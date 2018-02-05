@@ -11,8 +11,7 @@
     </section>
 {% endblock %}
 {% block body %}
-
-<div class="row" style="padding:0 10px;">
+<div class="row" style="padding:0 5px;">
     <!-- Left col -->
     <div class="col-md-6">
         <!-- MAP & BOX PANE -->
@@ -29,7 +28,10 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
-                    <div class="col-md-9 col-sm-8">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="chart-responsive" style="padding: 0 10px;">
+                            <canvas id="line-chart-visits"></canvas>
+                        </div>
 
                     </div>
                 </div>
@@ -40,9 +42,9 @@
     </div>
     <div class="col-md-3">
         <!-- MAP & BOX PANE -->
-        <div class="box box-default">
+        <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">OS</h3>
+                <h3 class="box-title">Browsers</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -52,22 +54,38 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
-                <div class="row">
-                    <div class="col-md-9 col-sm-8">
-                        <canvas id="pie-chart" width="800" height="450"></canvas>
-                    </div>
+              <div class="row" style="display: flex;align-items: center;">
+                <div class="col-md-8 ">
+                  <div class="chart-responsive" style="padding: 0 10px;">
+                    <canvas id="pie-chart-browser" style="height:390px;"></canvas>
+                  </div>
+                  <!-- ./chart-responsive -->
                 </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <ul class="chart-legend clearfix">
+                    <li><i class="fa fa-circle-o text-green"></i> Chrome</li>
+                    <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
+                    <li><i class="fa fa-circle-o text-red"></i> Opera</li>
+                    <li><i class="fa fa-circle-o text-aqua"></i> IE</li>
+                    <li><i class="fa fa-circle-o text-light-blue"></i> Safari</li>
+                    <li><i class="fa fa-circle-o text-gray"></i> Others</li>
+                  </ul>
+                </div>
+                <!-- /.col -->
+              </div>
             </div>
                 <!-- /.row -->
         </div>
             <!-- /.box-body -->
+
     </div>
 
     <div class="col-md-3">
         <!-- MAP & BOX PANE -->
-        <div class="box box-default">
+        <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Browser</h3>
+                <h3 class="box-title">Os</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -77,21 +95,34 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
-                <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
-                    </div>
+              <div class="row" style="display: flex;align-items: center;">
+                <div class="col-md-8 ">
+                  <div class="chart-responsive" style="padding: 0 10px;">
+                    <canvas id="pie-chart-os" style="height:390px;"></canvas>
+                  </div>
+                  <!-- ./chart-responsive -->
                 </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <ul class="chart-legend clearfix">
+                    <li><i class="fa fa-circle-o text-aqua"></i> Windows</li>
+                    <li><i class="fa fa-circle-o text-light-blue"></i> Linux</li>
+                    <li><i class="fa fa-circle-o text-green"></i> Android</li>
+                    <li><i class="fa fa-circle-o text-gray"></i> Others</li>
+                  </ul>
+                </div>
+                <!-- /.col -->
+              </div>
             </div>
                 <!-- /.row -->
         </div>
             <!-- /.box-body -->
-    </div>
+</div>
 </div>
 
-<div class="row" style="padding:0 10px;">
+<div class="row" style="padding:0 5px;">
     <!-- Left col -->
-    <div class="col-md-6">
+    <div class="col-md-9">
         <!-- MAP & BOX PANE -->
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -106,8 +137,8 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
+                    <div class="col-md-12 col-sm-12">
+                        <div id="world-map" style="height:500px; padding: 0 10px;"></div>
                     </div>
                 </div>
             </div>
@@ -130,33 +161,14 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
-                    </div>
-                </div>
-            </div>
-                <!-- /.row -->
-        </div>
-            <!-- /.box-body -->
-    </div>
-
-    <div class="col-md-3">
-        <!-- MAP & BOX PANE -->
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">Browser</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
+                    <div class="col-md-12 col-sm-12">
+                        <ul class="list-group">
+                          <li class="list-group-item">Cras justo odio <span class="badge badge-default badge-pill">14</span></li>
+                          <li class="list-group-item">Dapibus ac facilisis in <span class="badge badge-default badge-pill">14</span></li>
+                          <li class="list-group-item">Morbi leo risus <span class="badge badge-default badge-pill">14</span></li>
+                          <li class="list-group-item">Porta ac consectetur ac <span class="badge badge-default badge-pill">14</span></li>
+                          <li class="list-group-item">Vestibulum at eros <span class="badge badge-default badge-pill">14</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -183,8 +195,59 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
+                <div class="col-md-12 col-sm-12">
+                <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">5 mins ago</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
+                    <td class="mailbox-date">28 mins ago</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
+                    <td class="mailbox-date">11 hours ago</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">15 hours ago</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
+                    <td class="mailbox-date">Yesterday</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
                     </div>
                 </div>
             </div>
@@ -207,8 +270,18 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
-                    <div class="col-md-9 col-sm-8">
-
+                    <div class="col-md-12 col-sm-12">
+                        <form role="form">
+                            <div class="box-body">
+                                <div class="input-group">
+                                      <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button">Add!</button>
+                                      </span>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </form>
                     </div>
                 </div>
             </div>
@@ -219,7 +292,14 @@
 
     
 </div>
+
+
 <script src="{{ asset('build/js/chart.min.js') }}"></script>
+<script src="https://cdn.rawgit.com/emn178/Chart.PieceLabel.js/master/build/Chart.PieceLabel.min.js"></script>
+
+
+
+
 <script>
 function getXMLHttpRequest() {
     var xhr = null; 
@@ -242,49 +322,172 @@ function getXMLHttpRequest() {
 </script>
 <script>
 
-    var os;
-    
     document.addEventListener("DOMContentLoaded", function() { 
-        var xhr = getXMLHttpRequest();
-        xhr.open('GET', '/os', true);
-        xhr.onreadystatechange = function() {
+        //Get OS
+        var xhrOs = getXMLHttpRequest();
+        xhrOs.open('GET', '/os', true);
+        xhrOs.onreadystatechange = function() {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    os = xhr.responseText;
+                    var osParsed = JSON.parse(xhrOs.responseText);
+                    var osName = Object.keys(osParsed);
+                    var osValue = Object.keys(osParsed).map(function(k) { return osParsed[k] });
+                    generateOsChart(osName, osValue);
                 }
             }
         }
-        xhr.setRequestHeader('X-Requested-With', 'xmlhttprequest');
-        xhr.send();
+        xhrOs.setRequestHeader('X-Requested-With', 'xmlhttprequest');
+        xhrOs.send();
+        //Get Browser
+        var xhrBrowser = getXMLHttpRequest();
+        xhrBrowser.open('GET', '/browser', true);
+        xhrBrowser.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    browserParsed = JSON.parse(xhrBrowser.responseText);
+                    browserName = Object.keys(browserParsed);
+                    browserValue = Object.keys(browserParsed).map(function(k) { return browserParsed[k] });
+                    generateBrowserChart(browserName, browserValue);
+                }
+            }
+        }
+        xhrBrowser.setRequestHeader('X-Requested-With', 'xmlhttprequest');
+        xhrBrowser.send();
+    });
+    
+
+</script>
+
+
+<script src="http://jvectormap.com/js/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="http://jvectormap.com/js/jquery-jvectormap-world-mill.js"></script>
+<script>
+
+    var markers = [
+    {latLng: [48.921537, -66.829834], name: "something", weburl : "/blah/foo", style: {fill: '#3385ff', r:30}},
+    {latLng: [45.995944, -64.171143], name: "something else", weburl : "/blah/foo-else", style: {fill: '#3385ff', r:20}},
+    {latLng: [42.5, 1.51], name: 'Andorra', weburl : "/blah/foo-else", style: {fill: '#3385ff', r:15}}
+
+];
+
+
+    $(function(){
+      $('#world-map').vectorMap({
+        maxLevel: 1,
+        backgroundColor: '#383f47',
+         markerStyle: {
+        initial: {
+            fill: '#F8E23B',
+            stroke: '#383f47',
+            r:10
+        }
+    },
+        series: {
+                    regions: [{
+                        attribute: 'fill'
+                    }]
+        },
+        markers: markers,
+
+        map: 'world_mill',
+
+      });
+
+
+
     });
 </script>
 <script>
-    var jsonfile = {
-       "jsonarray": [{
-          "name": "Joe",
-          "age": 12
-       }, {
-          "name": "Tom",
-          "age": 14
-       }]
-    };
 
-    new Chart(document.getElementById("pie-chart"), {
+    //Browser chart
+function generateBrowserChart(browserName, browserValue) {
+    new Chart(document.getElementById("pie-chart-browser"), {
     type: 'pie',
     data: {
-      labels: ["Chrome", "Firefox", "Opera", "IE", "Safari", "Others"],
+      labels: browserName,
       datasets: [{
+        fill: true,
         label: "Population (millions)",
         backgroundColor: ["#00cc44", "#ffa31a","#ff5c33","#008ae6","#e6f0ff", "#e6e6e6"],
-        data: [2478,5267,734,784,433, 533]
+        data: browserValue,
+        //borderColor: ['black', 'black', 'black', 'black','black','black','black'],
+        borderWidth: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
       }]
     },
+
     options: {
+      segmentShowStroke: false,
+      responsive: true,
+      maintainAspectRatio: false,
       title: {
-        display: true,
+        display: false,
         text: 'Web Browsers'
+      },
+      legend: {
+       display: false
+      },
+          pieceLabel: {
+        render: 'percentage',
+        fontColor: '#000',
+
       }
+
     }
+
+})
+};
+
+    //OS chart
+function generateOsChart(osName, osValue) {
+    new Chart(document.getElementById("pie-chart-os"), {
+    type: 'pie',
+    data: {
+      labels: osName,
+      datasets: [{
+        fill: true,
+        label: "Population (millions)",
+        backgroundColor: ["#00cc44", "#008ae6","#e6f0ff", "#e6e6e6"],
+        data: osValue,
+        //borderColor: ['black', 'black', 'black', 'black','black','black','black'],
+        borderWidth: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+      }]
+    },
+
+    options: {
+      segmentShowStroke: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      title: {
+        display: false,
+        text: 'Web Browsers'
+      },
+      legend: {
+       display: false
+      },
+          pieceLabel: {
+        render: 'percentage',
+        fontColor: '#000',
+
+      }
+
+    }
+})
+};
+
+
+    //Visits
+    var ctx = $("#line-chart-visits");
+var lineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [
+      {
+        label: "2015",
+        data: [10,8,6,5,12,8,16,17,6,7,6,10]
+      }
+    ]
+  }
 });
 </script>
 {% endblock %}

@@ -39,7 +39,7 @@ class AdminController extends Controller
     public function browserStat(GetClientInfo $clientInfo)
     {
         $browsers = $clientInfo->getBrowserStats();
-        return new Response(var_dump(array_keys($browsers)));
+        return new JsonResponse($browsers);
     }
 
     /**
